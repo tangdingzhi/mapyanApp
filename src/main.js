@@ -9,7 +9,7 @@ import ElementUI from "element-ui"
 import 'element-ui/lib/theme-default/index.css'
 
 Vue.config.productionTip = false
-console.log(store)
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
@@ -19,5 +19,6 @@ new Vue({
 	template: '<App/>',
 	components: {
 		App
-	}
+	},
+	render: h => h(App)
 })
