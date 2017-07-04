@@ -9,9 +9,9 @@ import ElementUI from "element-ui"
 import 'element-ui/lib/theme-default/index.css'
 
 Vue.config.productionTip = false
-console.log(store)
 
-/* eslint-disable no-new */
+Vue.use(ElementUI)
+	/* eslint-disable no-new */
 new Vue({
 	el: '#app',
 	router,

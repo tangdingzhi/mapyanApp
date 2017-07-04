@@ -6,6 +6,11 @@ import Login from "../components/maoyanApp/login.vue"
 import Reg from "../components/maoyanApp/reg.vue"
 import Users from "../components/maoyanApp/user/users.vue"
 import addUsers from "../components/maoyanApp/user/addUsers.vue"
+//电影列表
+import movies from "../components/maoyanApp/movies/movies.vue"
+import addMovies from "../components/maoyanApp/movies/addMovies.vue"
+import moviesList from "../components/maoyanApp/movies/moviesList.vue"
+import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
 
 Vue.use(Router)
 
@@ -34,9 +39,20 @@ export default new Router({
 		}, {
 			path: "movies",
 			name: "movies",
-			component: {
-				template: "<div>movies</div>"
-			}
+			component: movies,
+			children: [{
+				path: "addMovies",
+				name: "addMovies",
+				component: addMovies,
+			}, {
+				path: "moviesList",
+				name: "moviesList",
+				component: moviesList,
+			}, {
+				path: "moviesImg",
+				name: "moviesImg",
+				component: moviesImg,
+			}]
 		}, {
 			path: "theaters",
 			name: "theaters",
