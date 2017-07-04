@@ -34,10 +34,10 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="3-1">
-          	<router-link :to="'/maoyanApp/theaters/addtheaters'">新增</router-link>
+          	<router-link :to="'/maoyanApp/theaters/addtheaters'">新增放映厅</router-link>
           </el-menu-item>
           <el-menu-item index="3-2">
-          	<router-link :to="'/maoyanApp/user/addUsers'">列表</router-link>
+          	<router-link :to="'/maoyanApp/theaters/theaterList'">放映厅列表</router-link>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -99,5 +99,7 @@ export default {
 	text-decoration: none;
 	color: #48576A;
 }
-
+.el-col{
+	margin-right: 30px;
+}
 </style>
