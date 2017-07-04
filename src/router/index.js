@@ -11,6 +11,8 @@ import movies from "../components/maoyanApp/movies/movies.vue"
 import addMovies from "../components/maoyanApp/movies/addMovies.vue"
 import moviesList from "../components/maoyanApp/movies/moviesList.vue"
 import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
+import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
+import theaterList from "../components/maoyanApp/theater/theaterList.vue"
 
 Vue.use(Router)
 
@@ -37,6 +39,14 @@ export default new Router({
 				component: addUsers,
 			}]
 		}, {
+			path: "theaters/addtheaters",
+			name: "addtheaters",
+			component: addtheaters
+		}, {
+			path: "theaters/theaterList",
+			name: "theaterList",
+			component: theaterList
+		}, {
 			path: "movies",
 			name: "movies",
 			component: movies,
@@ -53,12 +63,6 @@ export default new Router({
 				name: "moviesImg",
 				component: moviesImg,
 			}]
-		}, {
-			path: "theaters",
-			name: "theaters",
-			component: {
-				template: "<div>theaters</div>"
-			}
 		}, {
 			path: "studios",
 			name: "studios",
