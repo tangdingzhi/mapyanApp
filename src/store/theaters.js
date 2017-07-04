@@ -1,3 +1,8 @@
+const HANDLEEDIT = "HANDLEEDIT"
+const HANDLEDELETE = "HANDLEDELETE"
+const SHOWSEATS = "SHOWSEATS"
+const ASYNC_GETDATA = "ASYNC_GETDATA"
+
 const theaters = {
     namespaced: true, //使用命名空间，以防其他组件里面有同样的方法污染。
     state: {
@@ -10,19 +15,21 @@ const theaters = {
         }]
     },
     mutations: {
-        tableRowClassName(row, index) {
-            if (index === 1) {
-                return 'info-row';
-            } else if (index === 3) {
-                return 'positive-row';
-            }
-            return '';
-        },
-        handleEdit(index, row) {
+        [HANDLEEDIT](state, index, row) {
             console.log(index, row);
         },
-        handleDelete(index, row) {
+        [HANDLEDELETE](state, index, row) {
             console.log(index, row);
+        },
+        [SHOWSEATS](state) {
+            console.log('SHOWSEATS12134123145');
+        }
+    },
+    actions: {
+        [ASYNC_GETDATA](context) {
+            setTimeout(() => {
+                context.commit(SHOWSEATS)
+            }, 1000)
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
       <h1>放映厅列表</h1>
-            <el-table
+        <el-table
         :data="tableData2"
         style="width: 50%"
         :row-class-name="tableRowClassName">
@@ -18,14 +18,15 @@
           <template scope="scope">
             <el-button
               size="small"
-              @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+              @click="HANDLEEDIT(scope.$index, scope.row)">修改</el-button>
             <el-button
               size="small"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="HANDLEDELETE(scope.$index, scope.row)">删除</el-button>
             <el-button
               size="small"
-              type="danger">显示座位</el-button>
+              type="success"
+              @click="SHOWSEATS">显示座位</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -33,6 +34,11 @@
 </template>
 
 <script>
+import {
+  mapMutations,
+  mapActions,
+  mapGetters
+} from 'vuex'
 export default {
   name: 'theaterList',
   methods: {
@@ -43,12 +49,6 @@ export default {
           return 'positive-row';
         }
         return '';
-      },
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
       }
     },
     data() {
@@ -61,6 +61,9 @@ export default {
           studioName: 'CC影城莱蒙店'
         }]
       }
+    },
+    computed: {
+      ...mapMutations("theaters",["HANDLEEDIT", "HANDLEDELETE", "SHOWSEATS"])
     }
 }
 </script>
