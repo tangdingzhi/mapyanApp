@@ -6,6 +6,7 @@ import Login from "../components/maoyanApp/login.vue"
 import Reg from "../components/maoyanApp/reg.vue"
 import Users from "../components/maoyanApp/user/users.vue"
 import addUsers from "../components/maoyanApp/user/addUsers.vue"
+import Addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
 
 Vue.use(Router)
 
@@ -41,7 +42,7 @@ export default new Router({
 			path: "theaters",
 			name: "theaters",
 			component: {
-				template: "<div>theaters</div>"
+				template: Addtheaters
 			}
 		}, {
 			path: "studios",

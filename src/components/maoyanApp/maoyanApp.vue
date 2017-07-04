@@ -30,11 +30,11 @@
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">
-        	<i class="el-icon-setting"></i>座位管理
+        	<i class="el-icon-setting"></i>放映厅管理
         </template>
         <el-menu-item-group>
           <el-menu-item index="3-1">
-          	<router-link :to="'/maoyanApp/user/addUsers'">新增</router-link>
+          	<router-link :to="'/maoyanApp/theaters/addtheaters'">新增</router-link>
           </el-menu-item>
           <el-menu-item index="3-2">
           	<router-link :to="'/maoyanApp/user/addUsers'">列表</router-link>
@@ -82,8 +82,11 @@ export default {
         activeIndex2: '1'
       };
     },
-  methods: {
-      handleSelect(key, keyPath) {
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
         console.log(key, keyPath);
       }
     }
