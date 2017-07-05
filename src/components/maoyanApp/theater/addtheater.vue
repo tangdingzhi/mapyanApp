@@ -18,26 +18,24 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="studioId.name"
           label="影院名称">
         </el-table-column>
         <el-table-column label="操作">
           <template scope="scope">
             <el-button
               size="small"
-              @click="HANDLEEDIT({
-                a:scope.$index, b:scope.row
+              @click="updateTheater({
+                _id:scope.row._id, name:input
                 })">修改</el-button>
             <el-button
               size="small"
               type="danger"
-              @click="HANDLEDELETE({
-                index:scope.$index, row:scope.row
-                })">删除</el-button>
+              @click="removeTheater(scope.row._id)">删除</el-button>
             <el-button
               size="small"
               type="success"
-              @click="init">显示座位</el-button>
+              @click="seatsQuery(scope.row._id)">显示座位</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +64,7 @@ export default {
         }
         return '';
       },
-      ...mapActions("theaters",["addTheater", "init", "theaterList"])
+      ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery"])
     },
     computed: {
     ...mapState("theaters",["tableData2","theaters"])

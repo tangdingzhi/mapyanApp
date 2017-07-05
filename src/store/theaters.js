@@ -46,7 +46,6 @@ const theaters = {
             data.rows.map((item)=>{
                 context.state.theaters.push(item)
             })
-            console.log(theaters);
         },
         async addTheater(context,obj) {
             const data = await axios.post('http://127.0.0.1:3000/theaters/addTheater',
@@ -58,11 +57,34 @@ const theaters = {
                 _id
             })
             context.dispatch("init")
+        },
+        async removeTheater(context, theaterId) {
+            await axios.get('http://127.0.0.1:3000/theaters/remove',{
+                params: {
+                    _id:theaterId                   
+                }
+            })
+            context.dispatch("theaterList")
+        },
+        // http://127.0.0.1:3000/theaters/seatsQuery?theatersId=592e8a77c5de7633c8f04338
+        async seatsQuery(context, theaterId) {
+            const {data} = await axios.get('http://127.0.0.1:3000/theaters/seatsQuery',{
+                params: {
+                    theatersId:theaterId                   
+                }
+            })
+            console.log(data);
+        },
+        // http://127.0.0.1:3000/theaters/update?_id=595c8d14b62f1526b0839a64&name=shanghai
+        async updateTheater(context, obj) {
+            await axios.get('http://127.0.0.1:3000/theaters/update',{
+                params: obj
+            })
+            context.dispatch("theaterList")
         }
 
 
     }
-
-    }
+}
 
 export default theaters;
