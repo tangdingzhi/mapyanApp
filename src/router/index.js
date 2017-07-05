@@ -13,6 +13,9 @@ import moviesList from "../components/maoyanApp/movies/moviesList.vue"
 import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
 import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
 import theaterList from "../components/maoyanApp/theater/theaterList.vue"
+import schedules from "../components/maoyanApp/schedules/scheduls.vue"
+import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
+import addSchedules from '../components/maoyanApp/schedules/addSchedules.vue'
 
 Vue.use(Router)
 
@@ -72,9 +75,16 @@ export default new Router({
 		}, {
 			path: "schedules",
 			name: "schedules",
-			component: {
-				template: "<div>schedules</div>"
-			}
+			component: schedules,
+			children: [{
+				path: "schedulesList",
+				name: "schedulesList",
+				component: schedulesList,
+			}, {
+				path: "addSchedules",
+				name: "addSchedules",
+				component: addSchedules,
+			}]
 		}]
 
 	}, ]
