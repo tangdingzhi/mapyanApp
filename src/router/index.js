@@ -6,6 +6,9 @@ import Login from "../components/maoyanApp/login.vue"
 import Reg from "../components/maoyanApp/reg.vue"
 import Users from "../components/maoyanApp/user/users.vue"
 import addUsers from "../components/maoyanApp/user/addUsers.vue"
+import schedules from "../components/maoyanApp/schedules/scheduls.vue"
+import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
+import addSchedules from '../components/maoyanApp/schedules/addSchedules.vue'
 
 Vue.use(Router)
 
@@ -52,9 +55,16 @@ export default new Router({
 		}, {
 			path: "schedules",
 			name: "schedules",
-			component: {
-				template: "<div>schedules</div>"
-			}
+			component: schedules,
+			children: [{
+				path: "schedulesList",
+				name: "schedulesList",
+				component: schedulesList,
+			}, {
+				path: "addSchedules",
+				name: "addSchedules",
+				component: addSchedules,
+			}]
 		}]
 
 	}, ]

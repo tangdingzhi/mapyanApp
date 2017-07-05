@@ -7,9 +7,9 @@ import store from './store/store.js'
 import MaoyanApp from './components/maoyanApp/maoyanApp.vue'
 import ElementUI from "element-ui"
 import 'element-ui/lib/theme-default/index.css'
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-console.log(store)
 
 /* eslint-disable no-new */
 new Vue({
@@ -19,5 +19,6 @@ new Vue({
 	template: '<App/>',
 	components: {
 		App
-	}
+	},
+	render: h => h(App)
 })
