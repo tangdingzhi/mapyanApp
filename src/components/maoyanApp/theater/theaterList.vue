@@ -2,7 +2,7 @@
   <div>
       <h1>放映厅列表</h1>
         <el-table
-        :data="tableData2"
+        :data="this.tableData2"
         style="width: 50%"
         :row-class-name="tableRowClassName">
         <el-table-column
@@ -11,22 +11,26 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="studioName"
+          prop="name"
           label="影院名称">
         </el-table-column>
         <el-table-column label="操作">
           <template scope="scope">
             <el-button
               size="small"
-              @click="HANDLEEDIT(scope.$index, scope.row)">修改</el-button>
+              @click="HANDLEEDIT({
+              	a:scope.$index, b:scope.row
+              	})">修改</el-button>
             <el-button
               size="small"
               type="danger"
-              @click="HANDLEDELETE(scope.$index, scope.row)">删除</el-button>
+              @click="HANDLEDELETE({
+              	index:scope.$index, row:scope.row
+              	})">删除</el-button>
             <el-button
               size="small"
               type="success"
-              @click="SHOWSEATS">显示座位</el-button>
+              @click="init">显示座位</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -34,10 +38,16 @@
 </template>
 
 <script>
+// import {
+// 	ASYNC_GETDATA,
+// 	SHOWSEATS
+// } from '../../../store/theaters.js'
+import axios from "axios"
 import {
   mapMutations,
   mapActions,
-  mapGetters
+  mapGetters,
+  mapState
 } from 'vuex'
 export default {
   name: 'theaterList',
@@ -49,22 +59,21 @@ export default {
           return 'positive-row';
         }
         return '';
-      }
+      },
+    ...mapMutations("theaters",["HANDLEEDIT", "HANDLEDELETE", "SHOWSEATS", "ASYNC_GETDATA", "ASYNC_GETTHEATERS"]),
+    ...mapActions("theaters",["init"])
     },
-    data() {
-      return {
-        tableData2: [{
-          theaterName: '成都银行厅',
-          studioName: 'CC影城莱蒙店',
-        }, {
-          theaterName: 'MAX厅',
-          studioName: 'CC影城莱蒙店'
-        }]
-      }
-    },
-    computed: {
-      ...mapMutations("theaters",["HANDLEEDIT", "HANDLEDELETE", "SHOWSEATS"])
-    }
+	computed: {
+		...mapState("theaters",["tableData2"])
+	},
+	data() {
+	  return {
+	    add:1
+	  }
+	},
+	mounted() {
+    	this.init()
+ 	}
 }
 </script>
 

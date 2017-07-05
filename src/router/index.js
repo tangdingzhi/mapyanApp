@@ -7,6 +7,7 @@ import Reg from "../components/maoyanApp/reg.vue"
 import Users from "../components/maoyanApp/user/users.vue"
 import addUsers from "../components/maoyanApp/user/addUsers.vue"
 import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
+import addtheater from "../components/maoyanApp/theater/addtheater.vue"
 import theaterList from "../components/maoyanApp/theater/theaterList.vue"
 
 Vue.use(Router)
@@ -37,6 +38,10 @@ export default new Router({
 			path: "theaters/addtheaters",
 			name: "addtheaters",
 			component: addtheaters
+		}, {
+			path: "theaters/addtheaters/:studioId",
+			name: "addtheater",
+			component: addtheater
 		}, {
 			path: "theaters/theaterList",
 			name: "theaterList",
