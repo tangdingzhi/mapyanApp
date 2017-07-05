@@ -21,10 +21,10 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="2-1">
-          	<router-link :to="'/maoyanApp/user/addUsers'">新增电影</router-link>
+          	<router-link :to="'/maoyanApp/movies/addmovies'">新增电影</router-link>
           </el-menu-item>
           <el-menu-item index="2-2">
-          	<router-link :to="'/maoyanApp/user/addUsers'">电影列表</router-link>
+          	<router-link :to="'/maoyanApp/movies/moviesList'">电影列表</router-link>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>

@@ -59,7 +59,7 @@ export default new Router({
 				name: "moviesList",
 				component: moviesList,
 			}, {
-				path: "moviesImg",
+				path: "/moviesImg/:newMovieId",
 				name: "moviesImg",
 				component: moviesImg,
 			}]

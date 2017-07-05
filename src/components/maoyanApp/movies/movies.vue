@@ -1,7 +1,5 @@
 <template>
   <div>
-		<h5><router-link :to="'/maoyanApp/movies/addmovies'">新增电影</router-link></h5>
-		<h5><router-link :to="'/maoyanApp/movies/moviesList'">电影列表</router-link></h5> 	
     	<div class="box"><router-view></router-view></div>
   </div>
 </template>

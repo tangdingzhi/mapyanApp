@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="box">
 	<h2>新增电影</h2>
-<table cellpadding="5">
+	<table cellpadding="5">
 	<tr>
 		<td>
 			<p>中文名称</p>
@@ -48,10 +48,10 @@
 			<el-input v-model="movieList.synopsis" id="synopsis" type="textarea"  :autosize="{ minRows: 4, maxRows: 4}"></el-input>
 		</td>
 	</tr>
-	<tr class="addImgBox">
+	<tr class="addImgBox" >
 		<td>
 			<p class="addImg">上传图片</p>
-			<el-button size="small" type="primary" @click="a">上传</el-button></el-upload>
+			<el-button size="small" type="primary" @click="SETIMG(newMovieId)" :disabled="isUse">上传</el-button></el-upload>
 		</td>
 	</tr>
 	<tr>
@@ -73,21 +73,15 @@ export default {
   name: 'maoyanApp',
   data(){
   	return{
-	 	movieList:{
-	 		cName: "", //中文名称
-		    eName: "", //英文名称
-		    type: "", //影片类型
-		    country: "", //制片国家/地区
-		    duration: "", //片长, 单位 分钟
-		    release: "", //上映时间 格式: 2016-08-23
-		    synopsis: "", //剧情简介
-		    director: "", //导演, 关联演员_id 
-		    actors: "", //演员, 关联演员_id 
-	 	}
+	 	
   	}
   },
+  computed:{
+    ...mapState("movies",["newMovieId","isUse","movieList"]),
+  },
   methods: {
-  	...mapActions("movies",["ADDMOVIES"])
+  	...mapActions("movies",["ADDMOVIES"]),
+  	...mapMutations("movies",["SETIMG"])
     
     }
 }
@@ -95,6 +89,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.box{
+	margin-top: 30px;
+	margin-left: -150px;
+	}
 el-input {
     width: 110px;
   }
