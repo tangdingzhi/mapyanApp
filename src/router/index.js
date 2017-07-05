@@ -12,6 +12,7 @@ import addMovies from "../components/maoyanApp/movies/addMovies.vue"
 import moviesList from "../components/maoyanApp/movies/moviesList.vue"
 import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
 import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
+import addtheater from "../components/maoyanApp/theater/addtheater.vue"
 import theaterList from "../components/maoyanApp/theater/theaterList.vue"
 import schedules from "../components/maoyanApp/schedules/scheduls.vue"
 import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
@@ -47,6 +48,10 @@ export default new Router({
 			path: "theaters/addtheaters",
 			name: "addtheaters",
 			component: addtheaters
+		}, {
+			path: "theaters/addtheaters/:studioId",
+			name: "addtheater",
+			component: addtheater
 		}, {
 			path: "theaters/theaterList",
 			name: "theaterList",
