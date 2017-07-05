@@ -16,7 +16,9 @@ import theaterList from "../components/maoyanApp/theater/theaterList.vue"
 import schedules from "../components/maoyanApp/schedules/scheduls.vue"
 import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
 import addSchedules from '../components/maoyanApp/schedules/addSchedules.vue'
-
+import studios from '../components/maoyanApp/studios/studios.vue'
+import addstudios from "../components/maoyanApp/studios/addStudios.vue"
+import studiosList from '../components/maoyanApp/studios/studiosList.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -69,9 +71,16 @@ export default new Router({
 		}, {
 			path: "studios",
 			name: "studios",
-			component: {
-				template: "<div>studios</div>"
-			}
+			component: studios,
+			children: [{
+				path: "addstudios",
+				name: "addstudios",
+				component: addstudios,
+			}, {
+				path: "studiosList",
+				name: "studiosList",
+				component: studiosList,
+			}]
 		}, {
 			path: "schedules",
 			name: "schedules",
