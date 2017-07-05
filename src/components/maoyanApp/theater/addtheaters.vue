@@ -23,9 +23,7 @@
             <el-button
               size="small"
               type="danger"
-              @click="HANDLEDELETE({
-                index:scope.$index, row:scope.row._id
-                })">删除</el-button>
+              @click="removeStudio(scope.row._id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -59,7 +57,7 @@ export default {
         return '';
       },
       ...mapMutations("theaters",["HANDLEEDIT", "HANDLEDELETE"]),
-      ...mapActions("theaters",["init", "removeTheater"])
+      ...mapActions("theaters",["init", "removeStudio"])
       },
   mounted(){
     this.init()

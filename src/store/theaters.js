@@ -34,17 +34,30 @@ const theaters = {
                 context.state.tableData2.push(item)
             })
         },
+        async theaterList(context, studioId) {
+            const {data} = await axios.get('http://127.0.0.1:3000/theaters/query',{
+                params: {
+                    studioId,
+                    page: "1",
+                    rows: "10"                    
+                }
+            })
+            context.state.theaters.length = 0
+            data.rows.map((item)=>{
+                context.state.theaters.push(item)
+            })
+            console.log(theaters);
+        },
         async addTheater(context,obj) {
             const data = await axios.post('http://127.0.0.1:3000/theaters/addTheater',
                     obj
                 )
         },
-        async removeTheater(context, _id) {
-            const data = await axios.get('http://127.0.0.1:3000/theaters/remove',{
-                params: {
-                    _id
-                }
+        async removeStudio(context, _id) {
+            const data = await axios.post('http://127.0.0.1:3000/studio/deleteStudio',{
+                _id
             })
+            context.dispatch("init")
         }
 
 
