@@ -73,7 +73,6 @@ const schedules = {
 			data.map((item) => {
 				context.state.tableData.push(item)
 			})
-			console.log(context.state.tableData)
 		},
 		async removeSchedulesBySchedulesId(context, row) {
 			const data = await axios.get("http://localhost:3000/schedule/removeSchedulesBySchedulesId", {

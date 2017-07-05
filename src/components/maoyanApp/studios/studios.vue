@@ -19,6 +19,7 @@ export default {
 .box{
 		/*width: 400px;*/
 		position: absolute;
+		width: 300;		
 		top: 20px;
 		left: 200px
 	}
