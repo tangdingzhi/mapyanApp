@@ -1,7 +1,7 @@
 <template>
   <div>
 	<el-col :span="3">
-	<el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+	<el-menu default-active="2" class="el-menu-vertical-demo" >
       <el-submenu index="1">
         <template slot="title">
         	<i class="el-icon-message"></i>员工管理
@@ -47,10 +47,10 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="4-1">
-          	<router-link :to="'/maoyanApp/user/addUsers'">新增</router-link>
+          	<router-link :to="'/maoyanApp/studios/addstudios'">新增</router-link>
           </el-menu-item>
           <el-menu-item index="4-2">
-          	<router-link :to="'/maoyanApp/user/addUsers'">列表</router-link>
+          	<router-link :to="'/maoyanApp/studios/studiosList'">列表</router-link>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -60,10 +60,10 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="5-1">
-          	<router-link :to="'/maoyanApp/user/addUsers'">新增</router-link>
+          	<router-link :to="'/maoyanApp/schedules/addSchedules'">新增</router-link>
           </el-menu-item>
           <el-menu-item index="5-2">
-          	<router-link :to="'/maoyanApp/user/addUsers'">电影</router-link>
+          	<router-link :to="'/maoyanApp/schedules/schedulesList'">电影</router-link>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
