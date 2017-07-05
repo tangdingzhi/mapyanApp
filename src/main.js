@@ -7,11 +7,12 @@ import store from './store/store.js'
 import MaoyanApp from './components/maoyanApp/maoyanApp.vue'
 import ElementUI from "element-ui"
 import 'element-ui/lib/theme-default/index.css'
-
-Vue.config.productionTip = false
 Vue.use(ElementUI)
 
-/* eslint-disable no-new */
+Vue.config.productionTip = false
+
+Vue.use(ElementUI)
+	/* eslint-disable no-new */
 new Vue({
 	el: '#app',
 	router,

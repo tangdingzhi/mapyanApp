@@ -1,0 +1,149 @@
+<template>
+  <div>
+	<h2>新增电影</h2>
+<table cellpadding="5">
+	<tr>
+		<td>
+			<p>中文名称</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.cName" id="cName"></el-input>
+		</td>
+		<td>
+			<p>英文名称</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.eName" id="eName"></el-input>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p>影片类型</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.type" id="type"></el-input>
+		</td>
+		<td>
+			<p>制片国家/地区</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.country" id="country"></el-input>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p>片长</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.duration" id="duration"></el-input>
+		</td>
+		<td>
+			<p>导演</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.director" id="director"></el-input>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p>主演</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.actors" id="actors"></el-input>
+		</td>
+		<td>
+			<p>上映时间</p>
+			<el-input size="small" placeholder="请输入内容" v-model="movieList.release" id="release"></el-input>
+		</td>
+	</tr>
+	<tr>
+		<td class="synopsisBox">
+			<p>剧情简介</p>
+			<el-input v-model="movieList.synopsis" id="synopsis" type="textarea"  :autosize="{ minRows: 4, maxRows: 4}"></el-input>
+		</td>
+	</tr>
+	<tr class="addImgBox">
+		<td>
+			<p class="addImg">上传图片</p>
+			<el-button size="small" type="primary" @click="a">上传</el-button></el-upload>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p class="addImg">操作</p>
+			<el-button type="primary" id="saveBtn" size="small" @click="ADDMOVIES(movieList)">保存</el-button>
+			<el-button id="resetBtn" size="small">重置</el-button>
+		</td>
+	</tr>
+</table>
+  </div>
+
+</template>
+
+<script>
+import router from "../../../router/index.js"
+import {mapState,mapMutations,mapActions} from "vuex"
+export default {
+  name: 'maoyanApp',
+  data(){
+  	return{
+	 	movieList:{
+	 		cName: "", //中文名称
+		    eName: "", //英文名称
+		    type: "", //影片类型
+		    country: "", //制片国家/地区
+		    duration: "", //片长, 单位 分钟
+		    release: "", //上映时间 格式: 2016-08-23
+		    synopsis: "", //剧情简介
+		    director: "", //导演, 关联演员_id 
+		    actors: "", //演员, 关联演员_id 
+	 	}
+  	}
+  },
+  methods: {
+  	...mapActions("movies",["ADDMOVIES"])
+    
+    }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+el-input {
+    width: 110px;
+  }
+tr{
+	display: flex;
+}
+td{
+	height: 50px;
+	display: flex;
+	align-items: center;
+}
+.synopsisBox{
+	height: 40px;
+	width: 580px;
+	margin-top: 20px;
+}
+p{
+	text-align: center;
+	padding: 4px;
+	border-radius: 4px;
+	color: #fff;
+	background-color: #58B7FF;
+	width: 160px;
+}
+.addImg{
+	display: inline-block;
+	margin-right: 10px;
+	width: 120px;
+}
+.addImgBox{
+	margin-top: 30px;
+}
+#primaryBtn{
+	margin-top: 10px;
+	margin-left: 60px;
+}
+h2{
+	width: 600px;
+	margin:0 auto;
+	text-align: center;
+	color: #666666;
+}
+.addImgMsg{
+	display: inline-block;
+}
+#resetBtn{
+	margin-left: 40px;
+}
+#saveBtn{
+	margin-left: 60px;
+}
+</style>

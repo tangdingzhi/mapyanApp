@@ -6,6 +6,16 @@ import Login from "../components/maoyanApp/login.vue"
 import Reg from "../components/maoyanApp/reg.vue"
 import Users from "../components/maoyanApp/user/users.vue"
 import addUsers from "../components/maoyanApp/user/addUsers.vue"
+//电影列表
+import movies from "../components/maoyanApp/movies/movies.vue"
+import addMovies from "../components/maoyanApp/movies/addMovies.vue"
+import moviesList from "../components/maoyanApp/movies/moviesList.vue"
+import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
+import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
+import theaterList from "../components/maoyanApp/theater/theaterList.vue"
+import schedules from "../components/maoyanApp/schedules/scheduls.vue"
+import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
+import addSchedules from '../components/maoyanApp/schedules/addSchedules.vue'
 
 Vue.use(Router)
 
@@ -32,17 +42,30 @@ export default new Router({
 				component: addUsers,
 			}]
 		}, {
+			path: "theaters/addtheaters",
+			name: "addtheaters",
+			component: addtheaters
+		}, {
+			path: "theaters/theaterList",
+			name: "theaterList",
+			component: theaterList
+		}, {
 			path: "movies",
 			name: "movies",
-			component: {
-				template: "<div>movies</div>"
-			}
-		}, {
-			path: "theaters",
-			name: "theaters",
-			component: {
-				template: "<div>theaters</div>"
-			}
+			component: movies,
+			children: [{
+				path: "addMovies",
+				name: "addMovies",
+				component: addMovies,
+			}, {
+				path: "moviesList",
+				name: "moviesList",
+				component: moviesList,
+			}, {
+				path: "moviesImg",
+				name: "moviesImg",
+				component: moviesImg,
+			}]
 		}, {
 			path: "studios",
 			name: "studios",
@@ -52,9 +75,16 @@ export default new Router({
 		}, {
 			path: "schedules",
 			name: "schedules",
-			component: {
-				template: "<div>schedules</div>"
-			}
+			component: schedules,
+			children: [{
+				path: "schedulesList",
+				name: "schedulesList",
+				component: schedulesList,
+			}, {
+				path: "addSchedules",
+				name: "addSchedules",
+				component: addSchedules,
+			}]
 		}]
 
 	}, ]
