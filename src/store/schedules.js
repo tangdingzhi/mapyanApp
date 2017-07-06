@@ -14,7 +14,7 @@ const schedules = {
 	},
 	getters: {
 		addSchedules(context) {
-			console.log("in")
+			// console.log("in")
 		}
 	},
 	actions: { //其实还是调用的mutations里面的方法只不过他可以实现异步方法

@@ -12,6 +12,7 @@ import addMovies from "../components/maoyanApp/movies/addMovies.vue"
 import moviesList from "../components/maoyanApp/movies/moviesList.vue"
 import moviesImg from "../components/maoyanApp/movies/movieImg.vue"
 import addtheaters from "../components/maoyanApp/theater/addtheaters.vue"
+import addtheater from "../components/maoyanApp/theater/addtheater.vue"
 import theaterList from "../components/maoyanApp/theater/theaterList.vue"
 import schedules from "../components/maoyanApp/schedules/scheduls.vue"
 import schedulesList from '../components/maoyanApp/schedules/schdulesList.vue'
@@ -34,6 +35,13 @@ export default new Router({
 		path: '/maoyanApp',
 		name: 'MaoyanApp',
 		component: MaoyanApp,
+		beforeEnter: (to, from, next) => { //进入info之前的方法
+			if (eval(localStorage.isLogin)) {
+				next()
+			} else {
+				next(false)
+			}
+		},
 		children: [{
 			path: "user",
 			name: "user",
@@ -47,6 +55,10 @@ export default new Router({
 			path: "theaters/addtheaters",
 			name: "addtheaters",
 			component: addtheaters
+		}, {
+			path: "theaters/addtheaters/:studioId",
+			name: "addtheater",
+			component: addtheater
 		}, {
 			path: "theaters/theaterList",
 			name: "theaterList",

@@ -1,8 +1,15 @@
 <template>
-  <div>
-      <h1>放映厅列表</h1>
-  <el-table
-        :data="this.theaterAll"
+  <div class="content">
+      <h1>NEW放映厅</h1>
+      <div class="topInput">
+        <el-input v-model="input" placeholder="请输入放映厅名称"></el-input>
+        <el-button type="primary" @click="addTheater({
+            studioId,
+            name: input
+          })">保存</el-button>
+      </div>
+      <el-table
+        :data="this.theaters"
         style="width: 80%"
         :row-class-name="tableRowClassName">
         <el-table-column
@@ -19,13 +26,13 @@
             <el-button
               size="small"
               @click="updateTheater({
-                _id:scope.row._id, name:input
+                _id:scope.row._id, name:input, studioId
                 })">修改</el-button>
             <el-button
               size="small"
               type="danger"
               @click="removeTheater({
-                _id:scope.row._id
+                _id:scope.row._id, studioId
                 })">删除</el-button>
             <el-button
               size="small"
@@ -34,13 +41,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="topInput">
-        <el-input v-model="input" placeholder="请输入放映厅名称"></el-input>
-        <el-button type="primary" @click="addTheater({
-            studioId,
-            name: input
-          })">保存</el-button>
-      </div>
   </div>
 </template>
 
@@ -51,14 +51,15 @@ import {
   mapMutations
 } from 'vuex'
 export default {
-  name: 'theaterList',
-  data() {
-    return {
-      input: '',
-    }
-  },
-  methods: {
-    tableRowClassName(row, index) {
+    name: 'addtheater',
+    data() {
+      return {
+        input: '',
+        studioId: this.$route.params.studioId
+      }
+    },
+    methods: {
+      tableRowClassName(row, index) {
         if (index === 1) {
           return 'info-row';
         } else if (index === 3) {
@@ -66,20 +67,28 @@ export default {
         }
         return '';
       },
-    ...mapMutations("theaters", ["setPageState"]),
-    ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery", "theatersAll"])
+      ...mapMutations("theaters", ["setPageState"]),
+      ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery"])
     },
-	computed: {
-    ...mapState("theaters",["theaterAll", "pageState"])
-	},
-	mounted() {
-      this.setPageState(false)
-    	this.theatersAll()
- 	}
+    computed: {
+    ...mapState("theaters",["tableData2","theaters"])
+    },
+    mounted() {
+      this.setPageState(true)
+      this.theaterList(this.studioId)
+  }
 }
+
 </script>
 
-<style>
+<style scoped>
+  .content{
+    margin-left: 200px;
+  }
+  .topInput{
+    width: 300px;
+    display: flex;
+  }
   .el-table .info-row {
     background: #c9e5f5;
   }
@@ -87,12 +96,4 @@ export default {
   .el-table .positive-row {
     background: #e2f0e4;
   }
-
-  .topInput{
-    margin-top: 20px;
-    margin-left: 200px;
-    width: 300px;
-    display: flex;
-  }
-
 </style>
