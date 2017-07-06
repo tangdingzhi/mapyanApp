@@ -1,7 +1,14 @@
 <template>
-  <div>
-      <h1>放映厅列表</h1>
-<el-table
+  <div class="content">
+      <h1>NEW放映厅</h1>
+      <div class="topInput">
+        <el-input v-model="input" placeholder="请输入放映厅名称"></el-input>
+        <el-button type="primary" @click="addTheater({
+            studioId,
+            name: input
+          })">保存</el-button>
+      </div>
+      <el-table
         :data="this.theaters"
         style="width: 80%"
         :row-class-name="tableRowClassName">
@@ -41,9 +48,15 @@ import {
   mapState
 } from 'vuex'
 export default {
-  name: 'theaterList',
-  methods: {
-    tableRowClassName(row, index) {
+    name: 'addtheater',
+    data() {
+      return {
+        input: '',
+        studioId: this.$route.params.studioId
+      }
+    },
+    methods: {
+      tableRowClassName(row, index) {
         if (index === 1) {
           return 'info-row';
         } else if (index === 3) {
@@ -51,23 +64,28 @@ export default {
         }
         return '';
       },
-    ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery"])
+      ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery"])
     },
-	computed: {
+    computed: {
     ...mapState("theaters",["tableData2","theaters"])
-	},
-	data() {
-	  return {
-	    add:1
-	  }
-	},
-	mounted() {
-    	this.init()
- 	}
+    },
+    mounted() {
+      this.theaterList(this.studioId)
+      // console.log(this.studioId)
+  }
 }
+
 </script>
 
-<style>
+<style scoped>
+  .content{
+    /*position: fixed;*/
+    margin-left: 200px;
+  }
+  .topInput{
+    width: 300px;
+    display: flex;
+  }
   .el-table .info-row {
     background: #c9e5f5;
   }
@@ -75,5 +93,4 @@ export default {
   .el-table .positive-row {
     background: #e2f0e4;
   }
-
 </style>

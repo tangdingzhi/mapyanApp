@@ -2,7 +2,7 @@
   <div>
       <h1>新增放映厅</h1>
       <el-table
-        :data="tableData2"
+        :data="this.tableData2"
         style="width: 50%"
         :row-class-name="tableRowClassName">
         <el-table-column
@@ -17,12 +17,13 @@
         <el-table-column label="操作">
           <template scope="scope">
             <el-button
+
               size="small"
-              @click="handleEdit(scope.$index, scope.row)">新增</el-button>
+              @click="add(scope)">新增</el-button>
             <el-button
               size="small"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="removeStudio(scope.row._id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -30,9 +31,23 @@
 </template>
 
 <script>
+import {
+  mapMutations,
+  mapActions,
+  mapGetters,
+  mapState
+} from 'vuex'
+import axios from 'axios'
+import Router from '../../../router/index.js'
 export default {
   name: 'addtheaters',
+  computed: {
+    ...mapState("theaters",["tableData2"])
+  },
   methods: {
+    add(scope){
+      Router.push(`/maoyanApp/theaters/addtheaters/${scope.row._id}`)
+    },
       tableRowClassName(row, index) {
         if (index === 1) {
           return 'info-row';
@@ -41,24 +56,12 @@ export default {
         }
         return '';
       },
-      handleEdit(index, row) {
-        console.log(index, row);
+      ...mapMutations("theaters",["HANDLEEDIT", "HANDLEDELETE"]),
+      ...mapActions("theaters",["init", "removeStudio"])
       },
-      handleDelete(index, row) {
-        console.log(index, row);
-      }
-    },
-    data() {
-      return {
-        tableData2: [{
-          name: 'CC影城莱蒙店',
-          address: '武侯区二环路南四段51号莱蒙置地广场6层',
-        }, {
-          name: 'CGV星聚汇影城(高新店)',
-          address: '武侯区剑南大道中段998号世豪广场5F'
-        }]
-      }
-    }
+  mounted(){
+    this.init()
+  }
 }
 </script>
 
