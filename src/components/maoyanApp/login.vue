@@ -1,19 +1,17 @@
 <template>
-  <div class="login">
+  <div>
+    <div class="login">
   <div class="theme">猫眼APP后台管理系统</div>
   <div style="width:360px; height: 310px; border:1px solid #C0CCDA; margin: 0 auto; margin-top: 20px; background-color: #C0CCDA;"> 
   <div class="loginbox">
   <div style="text-align: center; color: white; font-family: Microsoft YaHei; font-size: 25px;" >登录页面</div>
 <div class="username">
 
-  <el-input placeholder="请输入您的账号" style="300px;">
   <el-input placeholder="请输入您的账号" v-model="username" style="300px;">
     <template slot="prepend">账号</template>
   </el-input>
 </div>
 <div class="password">
-  <el-input placeholder="请输入您的密码" >
-    <template slot="prepend">密码</template>
   <el-input placeholder="请输入您的密码" type="password" v-model="password">
     <template slot="prepend" >密码</template>
   </el-input>
@@ -25,6 +23,7 @@
   <el-button type="primary" @click="reg">注册</el-button>
   </div>
   
+  </div>
   </div>
   </div>
 
