@@ -75,6 +75,7 @@ export default {
 	},
 	moviesChang(value){
 		this.moviesId=value
+		console.log(this.studiosId)
 	},
 	theaterChang(value){
 		this.theatersId=value
