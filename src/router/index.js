@@ -35,6 +35,13 @@ export default new Router({
 		path: '/maoyanApp',
 		name: 'MaoyanApp',
 		component: MaoyanApp,
+		beforeEnter: (to, from, next) => { //进入info之前的方法
+			if (eval(localStorage.isLogin)) {
+				next()
+			} else {
+				next(false)
+			}
+		},
 		children: [{
 			path: "user",
 			name: "user",
