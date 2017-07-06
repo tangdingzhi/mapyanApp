@@ -1,24 +1,16 @@
-export const HANDLEEDIT = "HANDLEEDIT"
-export const HANDLEDELETE = "HANDLEDELETE"
-export const SHOWSEATS = "SHOWSEATS"
-export const ASYNC_GETDATA = "ASYNC_GETDATA"
 import axios from 'axios'
 
 const theaters = {
     namespaced: true, //使用命名空间，以防其他组件里面有同样的方法污染。
     state: {
         tableData2: [],
-        theaters: []
+        theaters: [],
+        theaterAll: [],
+        pageState:true
     },
     mutations: {
-        [HANDLEEDIT](state, obj) {
-            console.log(obj);
-        },
-        [HANDLEDELETE](state, obj) {
-            console.log(obj);
-        },
-        [SHOWSEATS](state,add) {
-            console.log(add);
+        setPageState(state, pageState) {
+            state.pageState = pageState
         }
     },
     actions: {
@@ -35,6 +27,7 @@ const theaters = {
             })
         },
         async theaterList(context, studioId) {
+            console.log(studioId);
             const {data} = await axios.get('http://127.0.0.1:3000/theaters/query',{
                 params: {
                     studioId,
@@ -47,10 +40,23 @@ const theaters = {
                 context.state.theaters.push(item)
             })
         },
+        async theatersAll(context) {
+            const {data} = await axios.get('http://127.0.0.1:3000/theaters/queryAll',{
+                params: {
+                    page: "1",
+                    rows: "10"                 
+                }
+            })
+            context.state.theaterAll.length = 0
+            data.rows.map((item)=>{
+                context.state.theaterAll.push(item)
+            })
+        },
         async addTheater(context,obj) {
             const data = await axios.post('http://127.0.0.1:3000/theaters/addTheater',
                     obj
                 )
+            context.dispatch("theaterList", obj.studioId)
         },
         async removeStudio(context, _id) {
             const data = await axios.post('http://127.0.0.1:3000/studio/deleteStudio',{
@@ -58,13 +64,18 @@ const theaters = {
             })
             context.dispatch("init")
         },
-        async removeTheater(context, theaterId) {
+        async removeTheater(context, obj) {
             await axios.get('http://127.0.0.1:3000/theaters/remove',{
                 params: {
-                    _id:theaterId                   
+                    _id:obj._id            
                 }
             })
-            context.dispatch("theaterList")
+            if(context.state.pageState){
+                context.dispatch("theaterList", obj.studioId)
+
+            }else{
+                context.dispatch("theatersAll")
+            }
         },
         // http://127.0.0.1:3000/theaters/seatsQuery?theatersId=592e8a77c5de7633c8f04338
         async seatsQuery(context, theaterId) {
@@ -80,7 +91,12 @@ const theaters = {
             await axios.get('http://127.0.0.1:3000/theaters/update',{
                 params: obj
             })
-            context.dispatch("theaterList")
+            if(context.state.pageState){
+                context.dispatch("theaterList", obj.studioId)
+
+            }else{
+                context.dispatch("theatersAll")
+            }
         }
 
 

@@ -26,12 +26,14 @@
             <el-button
               size="small"
               @click="updateTheater({
-                _id:scope.row._id, name:input
+                _id:scope.row._id, name:input, studioId
                 })">修改</el-button>
             <el-button
               size="small"
               type="danger"
-              @click="removeTheater(scope.row._id)">删除</el-button>
+              @click="removeTheater({
+                _id:scope.row._id, studioId
+                })">删除</el-button>
             <el-button
               size="small"
               type="success"
@@ -45,7 +47,8 @@
 <script>
 import {
   mapActions,
-  mapState
+  mapState,
+  mapMutations
 } from 'vuex'
 export default {
     name: 'addtheater',
@@ -64,14 +67,15 @@ export default {
         }
         return '';
       },
+      ...mapMutations("theaters", ["setPageState"]),
       ...mapActions("theaters",["addTheater", "init", "theaterList", "removeTheater", "updateTheater", "seatsQuery"])
     },
     computed: {
     ...mapState("theaters",["tableData2","theaters"])
     },
     mounted() {
+      this.setPageState(true)
       this.theaterList(this.studioId)
-      // console.log(this.studioId)
   }
 }
 
@@ -79,7 +83,6 @@ export default {
 
 <style scoped>
   .content{
-    /*position: fixed;*/
     margin-left: 200px;
   }
   .topInput{
