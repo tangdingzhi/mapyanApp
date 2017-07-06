@@ -56,6 +56,10 @@ export default new Router({
 			name: "movies",
 			component: movies,
 			children: [{
+				path: "/addMovies/:movieId",
+				name: "addMovies",
+				component: addMovies,
+			}, {
 				path: "addMovies",
 				name: "addMovies",
 				component: addMovies,

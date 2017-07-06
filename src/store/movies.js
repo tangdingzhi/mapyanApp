@@ -2,8 +2,10 @@ export const GETMOVIES = "GETMOVIES"
 export const ADDMOVIES = "ADDMOVIES"
 export const DELMOVIES = "DELMOVIES"
 export const SETIMG = "SETIMG"
-export const GETURL = "GETURL"
 export const CHANGEMOVIE = "CHANGEMOVIE"
+export const CHANGEMSG = "CHANGEMSG"
+export const INITADDMOVIE = "INITADDMOVIE"
+export const CHANGEMOVIEMSG = "CHANGEMOVIEMSG"
 
 
 
@@ -19,11 +21,14 @@ const movies = {
 		newMovieId: "",
 		movieIMG: [],
 		isUse: true,
+		ischange: true,
+		isSet: false,
+		total:0,
 		movieList: {
 			cName: "绝世高手", //中文名称
 			eName: "The One", //英文名称
 			type: "喜剧,动作", //影片类型
-			country: "中国大陆", //制片国家/地区
+			country: "", //制片国家/地区
 			duration: "116分钟", //片长, 单位 分钟
 			release: "2017-07-07", //上映时间 格式: 2016-08-23
 			synopsis: "一个先天没有知觉，挨揍不疼却冒充高手的小混混（卢正雨 饰），一个醉心于织毛衣的过气大师（范伟 饰），一个人称女张飞的暴力少女（郭采洁 饰），一个只会做黑暗料理的美食大亨（蔡国庆 饰），一个可以用汤操纵情绪的当代孟婆（陈冲 饰），一个身患强迫症的日本武士（仓田保昭 饰），为了一本失传的秘笈，引发了一场绝世高手的爆笑对决。", //剧情简介
@@ -31,7 +36,6 @@ const movies = {
 			actors: "卢正雨", //演员, 关联演员_id 
 			stata: 1
 		}
-
 	},
 	mutations: {
 		SETMOVIES(state, options) {
@@ -43,8 +47,24 @@ const movies = {
 		SETIMG(state, options) {
 			router.push(`/moviesImg/${options}`)
 			state.isUse = true
+			state.ischange = true
+			state.isSet = false
 		},
-
+		CHANGEMOVIE(state, options) {
+			if (options != "") {
+				router.push(`/addMovies/${options}`)
+			} else {
+				router.push("/addMovies")
+			}
+			state.ischange = false
+			state.isSet = true
+		},
+		INITADDMOVIE(state){
+			state.isUse= true,
+			state.ischange= true,
+			state.isSet= false
+			// state.movieList = {}
+		}
 	},
 	actions: {
 		async GETMOVIES(context) {
@@ -53,10 +73,12 @@ const movies = {
 			} = await axios.get('http://localhost:3000/movies/query', {
 				//get请求时传的数据要包一个params
 				params: {
-					eachPage: context.state.eachPage
+					eachPage: context.state.eachPage,
+					curPage:context.state.curPage
 				}
 			})
 			console.log(data)
+			context.state.total = data.total
 			context.commit("SETMOVIES", data.rows)
 		},
 		async ADDMOVIES(context, movieList) {
@@ -65,6 +87,7 @@ const movies = {
 			} = await axios.post('http://localhost:3000/movies/addMovies', movieList)
 			context.commit("SETMOVIES", data.rows)
 			context.state.newMovieId = data._id
+			context.state.movieList = {}
 			context.state.isUse = false
 		},
 		async DELMOVIES(context, id) {
@@ -74,25 +97,6 @@ const movies = {
 				movieId: id
 			})
 			context.dispatch("GETMOVIES")
-		},
-		async GETURL(context, {
-			movieid: movieid,
-			type: type,
-			imgUrl: imgUrl
-		}) {
-			const {
-				data
-			} = await axios.post('http://localhost:3000/imgs/addImg', {
-				movieId: movieid,
-				type: type,
-				url: imgUrl
-			})
-			console.log(data._id)
-			console.log(data.movieId)
-			context.dispatch("ADDIMGIDTOMOVIE", {
-				movieid: data.movieId,
-				imgid: data._id
-			})
 		},
 		async ADDIMGIDTOMOVIE(context, {
 			movieid: movieid,
@@ -109,19 +113,52 @@ const movies = {
 			})
 			console.log(data)
 		},
-		async CHANGEMOVIE(context, id) {
-			const {
+		async CHANGEMSG(context,id) {			
+				const {
 				data
-			} = await axios.get('http://localhost:3000/movies/queryUpdateMovie', {
+			} = await axios.get('http://localhost:3000/movies/movieQuery', {
 				params: {
-					movieId: id
+					_id: id
 				}
 			})
+			// console.log(data)
 			context.state.movieList = data.rows[0]
-			console.log(context.state.movieList)
-			router.push("addMovies")
+			context.state.movieList.actors=context.state.movieList.actors.join('')
+			context.state.movieList.director=context.state.movieList.director.join('')
+			// console.log(context.state.movieList)
+		// this.movieList.length = 0
+		// data.rows.map((item) => {
+		// 		this.movieList.push(item)
+		// 	})
+		// console.log(this.movieList)
+		},
+		async CHANGEMOVIEMSG(context,{
+			movieId:movieId,
+			cName:cName,
+			eName:eName,
+			type:type,
+			country:country,
+			duration:duration,
+			director:director,
+			actors:actors,
+			release:release,
+			synopsis:synopsis
+		}){
+			console.log(movieId,cName,eName,type,country,duration,director,actors,release,synopsis)
+			const {data} = await axios.post('http://localhost:3000/movies/updateMovie', {
+					movieId:movieId,
+					cName:cName,
+					eName:eName,
+					type:type,
+					country:country,
+					duration:duration,
+					director:director,
+					actors:actors,
+					release:release,
+					synopsis:synopsis
+			})
+			console.log(data)
 		}
-
 	}
 }
 export default movies;

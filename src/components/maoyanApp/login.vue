@@ -5,12 +5,12 @@
   <div class="loginbox">
   <div style="text-align: center; color: white; font-family: Microsoft YaHei; font-size: 25px;" >登录页面</div>
 <div class="username">
-  <el-input placeholder="请输入您的账号" v-model="input3" style="300px;">
+  <el-input placeholder="请输入您的账号" style="300px;">
     <template slot="prepend">账号</template>
   </el-input>
 </div>
 <div class="password">
-  <el-input placeholder="请输入您的密码" v-model="input3">
+  <el-input placeholder="请输入您的密码" >
     <template slot="prepend">密码</template>
   </el-input>
 </div>

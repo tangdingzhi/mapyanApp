@@ -33,6 +33,10 @@
           </template>
         </el-table-column>
         </el-table>
+        <el-pagination
+          layout="prev, pager, next"
+          :total="total">
+        </el-pagination>
      </div>
   </template>
 
@@ -42,13 +46,14 @@ import {mapState,mapMutations,mapActions} from "vuex"
 export default {
   name: 'moviesList',
     computed:{
-    ...mapState("movies",["movies"]),
+    ...mapState("movies",["movies","total"]),
   },
     created(){
   	this.GETMOVIES()
   },
     methods:{
-  	...mapActions("movies",["GETMOVIES","CHANGEMOVIE","DELMOVIES"])
+  	...mapActions("movies",["GETMOVIES","DELMOVIES"]),
+    ...mapMutations("movies",["CHANGEMOVIE"])
   } 
 }
 </script>
